@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SignUpFragment">
+    tools:context=".ui.SignInFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -14,27 +14,18 @@
         <EditText
             android:inputType="textEmailAddress"
             android:textSize="24sp"
-            android:hint="@string/type_email_address"
+            android:hint="@string/email_address"
             android:gravity="center_vertical"
             android:id="@+id/emailAddressInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
         <EditText
             android:inputType="textPassword"
             android:textSize="24sp"
-            android:hint="@string/type_password"
+            android:hint="@string/password"
             android:gravity="center_vertical"
             android:id="@+id/passwordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/signUpBtn"
-            android:text="@string/sign_up"
-            android:gravity="center_vertical"
-            android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -46,6 +37,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <Button
+            android:id="@+id/signUpBtn"
+            android:text="@string/sign_up"
+            android:gravity="center_vertical"
+            android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
     </LinearLayout>

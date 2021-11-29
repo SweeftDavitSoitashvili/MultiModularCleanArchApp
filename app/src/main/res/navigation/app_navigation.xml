@@ -9,5 +9,19 @@
         android:name="com.example.signup.ui.SignUpFragment"
         app:moduleName="MultiModuleApp.SignUp"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment2_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.signin.ui.SignInFragment"
+        app:moduleName="MultiModuleApp.SignIn"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment2"
+            app:destination="@id/signUpFragment2" />
+    </fragment>
 </navigation>

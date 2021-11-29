@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MultiModuleApp</string>
     <string name="title_signup">Sign Up</string>
+    <string name="title_signin">Sign In</string>
 </resources>
