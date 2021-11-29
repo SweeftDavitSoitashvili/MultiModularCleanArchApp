@@ -1,0 +1,1 @@
+/Users/davitsoitashvili/Desktop/Android Apps/MultiModuleApp/buildSrc/build/classes/kotlin/main/Dependencies.class:/Users/davitsoitashvili/Desktop/Android Apps/MultiModuleApp/buildSrc/build/classes/kotlin/main/Versions.class
