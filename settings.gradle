@@ -10,3 +10,4 @@ rootProject.name = "MultiModuleApp"
 include ':app'
 include ':AuthDomain'
 include ':AuthData'
+include ':SignUp'
