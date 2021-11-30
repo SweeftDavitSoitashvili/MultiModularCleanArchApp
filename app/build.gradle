@@ -46,5 +46,7 @@ dependencies {
     implementation Dependencies.constraint
     implementation Dependencies.appcompat
     implementation Dependencies.materials
+    implementation project(path: ':DashboardData')
+    implementation project(path: ':DashboardDomain')
 
 }

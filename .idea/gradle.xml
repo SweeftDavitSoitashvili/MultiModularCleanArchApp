@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AuthData" />
             <option value="$PROJECT_DIR$/AuthDomain" />
+            <option value="$PROJECT_DIR$/DashboardData" />
+            <option value="$PROJECT_DIR$/DashboardDomain" />
             <option value="$PROJECT_DIR$/SignIn" />
             <option value="$PROJECT_DIR$/SignUp" />
             <option value="$PROJECT_DIR$/app" />
