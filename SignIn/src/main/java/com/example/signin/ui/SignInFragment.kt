@@ -14,6 +14,7 @@ import com.example.multimoduleapp.di.ModuleManager
 import com.example.multimoduleapp.navigation.Navigation
 import com.example.multimoduleapp.navigation.NavigationImpl
 import com.example.signin.R
+import com.example.signin.ui.validator.EmptyFieldException
 import com.example.signin.ui.vm.SignInVm
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,13 +61,25 @@ class SignInFragment : Fragment() {
             val inputEmailInput = findViewById<EditText>(R.id.emailAddressInput)
             val inputPasswordInput = findViewById<EditText>(R.id.passwordInput)
             val signInBtn = findViewById<Button>(R.id.signInBtn)
+
             signInBtn.setOnClickListener {
+                val email = inputEmailInput.text.toString()
+                val password = inputPasswordInput.text.toString()
+
+                try {
+                    checkOnEmptyFields(email,password)
+                } catch (exception : EmptyFieldException) {
+                    Toast.makeText(it.context, "Please fill all fields", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    if (!isUserExist(inputEmailInput.text.toString(), inputPasswordInput.text.toString())) {
+                    if (!isUserExist(email, password))  {
                         Toast.makeText(it.context, "User does not exist", Toast.LENGTH_LONG).show()
+                        return@launch
                     }
-                    if (signInVm.isUserEmailExist(inputEmailInput.text.toString())) {
+
+                    if (signInVm.isUserEmailExist(email)) {
                         Toast.makeText(it.context, "You signed in successfully", Toast.LENGTH_LONG).show()
                         navigation.navigateToDashboard()
                     } else {
@@ -74,7 +87,12 @@ class SignInFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
 
+    private fun checkOnEmptyFields(email : String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            throw EmptyFieldException()
         }
     }
 

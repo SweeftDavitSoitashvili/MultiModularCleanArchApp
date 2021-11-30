@@ -16,6 +16,7 @@ import com.example.multimoduleapp.navigation.Navigation
 import com.example.multimoduleapp.navigation.NavigationImpl
 import com.example.signup.R
 import com.example.signup.ui.vm.SignUpVm
+import com.example.signup.ui.vm.validator.EmptyFieldException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,11 +68,17 @@ class SignUpFragment : Fragment() {
             val password = inputPasswordText.text.toString()
             val repeatPassword = inputRepeatPassword.text.toString()
 
+            try {
+                checkOnEmptyFields(email,password,repeatPassword)
+            } catch (exception : EmptyFieldException) {
+                Toast.makeText(it.context, "Please fill all fields", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             if (!isPasswordMatch(password, repeatPassword)) {
                 Toast.makeText(it.context, "Password mismatch", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-
 
             CoroutineScope(Dispatchers.Main).launch {
 
@@ -100,6 +107,12 @@ class SignUpFragment : Fragment() {
 
     private fun isPasswordMatch(password: String, repeatPassword: String) =
         password == repeatPassword
+
+    private fun checkOnEmptyFields(email : String, password: String, repeatPassword: String) {
+        if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+            throw EmptyFieldException()
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
