@@ -17,6 +17,8 @@ class UserRepositoryImpl(
         userDataSource.saveUser(userMapper.mapToUserEntity(user))
     }
 
-    override suspend fun isUserExist(email: String) = userDataSource.isUserExist(email)
+    override suspend fun isUserEmailExist(email: String) = userDataSource.isUserEmailExist(email)
+
+    override suspend fun isUserExist(email : String, password : String) = userDataSource.isUserExist(email, password)
 
 }

@@ -12,6 +12,8 @@ class UserDataSourceImpl(private val appDatabase: AppDatabase) : UserDataSource 
         appDatabase.getUserDao().saveUser(user)
     }
 
-    override suspend fun isUserExist(email: String): Boolean = appDatabase.getUserDao().isUserExist(email)
+    override suspend fun isUserEmailExist(email: String): Boolean = appDatabase.getUserDao().isUserEmailExist(email)
+
+    override suspend fun isUserExist(email: String, password: String) = appDatabase.getUserDao().isUserExist(email, password)
 
 }

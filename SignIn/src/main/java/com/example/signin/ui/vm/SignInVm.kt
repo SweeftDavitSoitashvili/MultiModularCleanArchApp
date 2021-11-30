@@ -1,7 +1,6 @@
 package com.example.signin.ui.vm
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.authdomain.interactors.UserUseCase
 import com.example.authdomain.models.User
 import com.example.authdomain.repository.UserRepository
@@ -18,5 +17,7 @@ class SignInVm : ViewModel() {
     suspend fun saveUser(user : User) {
         userUseCase.saveUser(user)
     }
-    suspend fun isUserExist(email : String) = userUseCase.isUserExists(email)
+    suspend fun isUserEmailExist(email : String) = userUseCase.isUserEmailExists(email)
+
+    suspend fun isUserExist(email : String, password : String) = userUseCase.isUserExist(email,password)
 }

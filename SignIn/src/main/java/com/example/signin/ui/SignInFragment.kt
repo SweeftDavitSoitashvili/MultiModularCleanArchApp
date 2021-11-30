@@ -18,10 +18,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class SignInFragment : Fragment() {
 
-    private val signUpVm: SignInVm by lazy {
+    private val signInVm: SignInVm by lazy {
         ViewModelProvider(this).get(SignInVm::class.java)
     }
 
@@ -47,8 +46,13 @@ class SignInFragment : Fragment() {
             val inputPasswordInput = findViewById<EditText>(R.id.passwordInput)
             val signInBtn = findViewById<Button>(R.id.signInBtn)
             signInBtn.setOnClickListener {
+
                 CoroutineScope(Dispatchers.Main).launch {
-                    if (signUpVm.isUserExist(inputEmailInput.text.toString())) {
+                    if (!isUserExist(inputEmailInput.text.toString(), inputPasswordInput.text.toString())) {
+                        Toast.makeText(it.context, "User does not exist", Toast.LENGTH_LONG).show()
+                    }
+
+                    if (signInVm.isUserEmailExist(inputEmailInput.text.toString())) {
                         Toast.makeText(it.context, "You sign in successfully", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(it.context, "User not found, try again", Toast.LENGTH_LONG).show()
@@ -64,5 +68,7 @@ class SignInFragment : Fragment() {
             navigation.navigateToSignUp()
         }
     }
+
+    private suspend fun isUserExist(email : String, password : String) = signInVm.isUserExist(email,password)
 
 }

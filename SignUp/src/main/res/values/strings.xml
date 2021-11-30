@@ -5,4 +5,5 @@
     <string name="type_password">Type Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="repeat_password">Repeat Password</string>
 </resources>

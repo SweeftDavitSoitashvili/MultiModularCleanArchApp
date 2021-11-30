@@ -15,5 +15,5 @@ class SignUpVm : ViewModel() {
     suspend fun saveUser(user : User) {
         userUseCase.saveUser(user)
     }
-    suspend fun isUserExist(email : String) = userUseCase.isUserExists(email)
+    suspend fun isUserExist(email : String) = userUseCase.isUserEmailExists(email)
 }

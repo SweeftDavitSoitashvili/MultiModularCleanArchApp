@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.authdomain.models.User
@@ -43,15 +44,22 @@ class SignUpFragment : Fragment() {
     private fun signUp() {
         val inputEmailInput: EditText = requireView().findViewById(R.id.emailAddressInput)
         val inputPasswordText: EditText = requireView().findViewById(R.id.passwordInput)
+        val inputRepeatPassword: EditText = requireView().findViewById(R.id.repeatPasswordInput)
         val signUpBtn: Button = requireView().findViewById(R.id.signUpBtn)
 
         signUpBtn.setOnClickListener {
+            val email = inputEmailInput.text.toString()
+            val password = inputPasswordText.text.toString()
+            val repeatPassword = inputRepeatPassword.text.toString()
+            if (!isPasswordMatch(password, repeatPassword)) {
+                Toast.makeText(it.context, "Password mismatch", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             CoroutineScope(Dispatchers.IO).launch {
                 signUpVm.saveUser(
                     User(
-                        2,
-                        inputEmailInput.text.toString(),
-                        inputPasswordText.text.toString()
+                        email,
+                        password
                     )
                 )
             }
@@ -63,4 +71,7 @@ class SignUpFragment : Fragment() {
             navigation.navigateToSignIn()
         }
     }
+
+    private fun isPasswordMatch(password: String, repeatPassword: String) =
+        password == repeatPassword
 }
