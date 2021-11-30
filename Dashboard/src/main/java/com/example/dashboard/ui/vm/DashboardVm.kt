@@ -5,11 +5,8 @@ import com.example.dashboarddomain.interactors.ResourceUseCase
 import com.example.dashboarddomain.repository.ResourceRepository
 import org.koin.java.KoinJavaComponent.inject
 
-class DashboardVm : ViewModel() {
-    private val resourceRepository by inject<ResourceRepository>(ResourceRepository::class.java)
-    private val resourceUseCase by lazy {
-        ResourceUseCase(resourceRepository)
-    }
-
+class DashboardVm(
+    private val resourceUseCase : ResourceUseCase
+) : ViewModel() {
     suspend fun getResource() = resourceUseCase.getResource()
 }

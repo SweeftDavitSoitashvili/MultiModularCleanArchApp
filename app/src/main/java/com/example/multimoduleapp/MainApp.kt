@@ -14,14 +14,16 @@ import com.example.dashboarddata.mappers.resource.ResourceMapper
 import com.example.dashboarddata.remote_service.RemoteApiService
 import com.example.dashboarddata.repository.ResourceRepositoryImpl
 import com.example.dashboarddomain.repository.ResourceRepository
+import com.example.multimoduleapp.di.ModuleManager
 
 import org.koin.core.KoinApplication
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class MainApp : Application() {
-    private lateinit var koinModules : KoinApplication
+class MainApp : Application(), ModuleManager {
+    private lateinit var koinApplication: KoinApplication
 
     companion object {
         private var mainApp: MainApp? = null
@@ -35,16 +37,23 @@ class MainApp : Application() {
             mainApp = this
         }
         initKoin()
-
     }
 
     private fun initKoin() {
-        startKoin {
-            koinModules = modules(initModules())
+        koinApplication = startKoin {
+            loadKoinModules(initGlobalModules())
         }
     }
 
-    private fun initModules(): List<Module> {
+    override fun addModule(featureModule: Module) {
+        koinApplication.modules(featureModule)
+    }
+
+    override fun removeModule(featureModule: Module) {
+        koinApplication.unloadModules(featureModule)
+    }
+
+    private fun initGlobalModules(): List<Module> {
         val modules = mutableListOf<Module>()
         val authModule = module {
             single { AppDatabase.getDatabase(MainApp.mainApp!!.applicationContext) }
@@ -55,15 +64,23 @@ class MainApp : Application() {
 
         val dashboardModule = module {
             single { RetrofitClient.retrofit.create(RemoteApiService::class.java) }
-            single<ResourceDataSource> {ResourceDataSourceImpl(get())}
+            single<ResourceDataSource> { ResourceDataSourceImpl(get()) }
             single { ResourceMapper() }
             single<ResourceRepository> { ResourceRepositoryImpl(get(), get()) }
         }
 
         modules.add(authModule)
         modules.add(dashboardModule)
-        return modules
+        modules.add(module {
+            single<ModuleManager> { mainApp!! }
+        })
 
+        return modules
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        koinApplication.close()
     }
 
 }

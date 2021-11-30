@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.authdomain.interactors.UserUseCase
 import com.example.authdomain.models.User
+import com.example.multimoduleapp.di.ModuleManager
 import com.example.multimoduleapp.navigation.Navigation
 import com.example.multimoduleapp.navigation.NavigationImpl
 import com.example.signup.R
@@ -18,14 +19,28 @@ import com.example.signup.ui.vm.SignUpVm
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 class SignUpFragment : Fragment() {
 
-    private val signUpVm: SignUpVm by lazy {
-        ViewModelProvider(this).get(SignUpVm::class.java)
+    private val loadScopedModules by inject<ModuleManager>()
+
+    private val signUpModule = module {
+        single(qualifier = named<SignUpFragment>()) { UserUseCase(get()) }
+        viewModel { SignUpVm(get(qualifier = named<SignUpFragment>())) }
     }
 
+    private val signUpVm: SignUpVm by inject()
+
     private lateinit var navigation: Navigation
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadScopedModules.addModule(signUpModule)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,4 +100,9 @@ class SignUpFragment : Fragment() {
 
     private fun isPasswordMatch(password: String, repeatPassword: String) =
         password == repeatPassword
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadScopedModules.removeModule(signUpModule)
+    }
 }

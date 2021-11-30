@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.authdomain.interactors.UserUseCase
+import com.example.multimoduleapp.di.ModuleManager
 import com.example.multimoduleapp.navigation.Navigation
 import com.example.multimoduleapp.navigation.NavigationImpl
 import com.example.signin.R
@@ -17,14 +18,28 @@ import com.example.signin.ui.vm.SignInVm
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 class SignInFragment : Fragment() {
 
-    private val signInVm: SignInVm by lazy {
-        ViewModelProvider(this).get(SignInVm::class.java)
+    private val loadScopedModules by inject<ModuleManager>()
+
+    private val signInModule = module {
+        single(qualifier = named<SignInFragment>()) { UserUseCase(get()) }
+        viewModel { SignInVm(get(qualifier = named<SignInFragment>())) }
     }
 
+    private val signInVm by inject<SignInVm>()
+
     private lateinit var navigation: Navigation
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadScopedModules.addModule(signInModule)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,4 +86,8 @@ class SignInFragment : Fragment() {
 
     private suspend fun isUserExist(email : String, password : String) = signInVm.isUserExist(email,password)
 
+    override fun onDestroy() {
+        super.onDestroy()
+        loadScopedModules.removeModule(signInModule)
+    }
 }
