@@ -51,17 +51,28 @@ class SignUpFragment : Fragment() {
             val email = inputEmailInput.text.toString()
             val password = inputPasswordText.text.toString()
             val repeatPassword = inputRepeatPassword.text.toString()
+
             if (!isPasswordMatch(password, repeatPassword)) {
                 Toast.makeText(it.context, "Password mismatch", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            CoroutineScope(Dispatchers.IO).launch {
+
+
+            CoroutineScope(Dispatchers.Main).launch {
+
+                if (signUpVm.isUserExist(email)) {
+                    Toast.makeText(it.context, "User Already exists", Toast.LENGTH_LONG).show()
+                    return@launch
+                }
+
                 signUpVm.saveUser(
                     User(
                         email,
                         password
                     )
                 )
+                Toast.makeText(it.context, "You have signed up successfully", Toast.LENGTH_LONG).show()
+                navigation.navigateToSignIn()
             }
         }
     }

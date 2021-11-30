@@ -53,7 +53,7 @@ class SignInFragment : Fragment() {
                     }
 
                     if (signInVm.isUserEmailExist(inputEmailInput.text.toString())) {
-                        Toast.makeText(it.context, "You sign in successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(it.context, "You signed in successfully", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(it.context, "User not found, try again", Toast.LENGTH_LONG).show()
                     }
