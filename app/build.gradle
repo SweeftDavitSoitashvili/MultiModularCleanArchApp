@@ -29,7 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = [':SignUp', ':SignIn']
+    dynamicFeatures = [':SignUp', ':SignIn', ':Dashboard']
 }
 
 dependencies {
@@ -37,6 +37,8 @@ dependencies {
     // modules
     implementation project(":AuthData")
     implementation project(":AuthDomain")
+    implementation project(path: ':DashboardData')
+    implementation project(path: ':DashboardDomain')
 
     // libraries
     implementation Dependencies.koin
@@ -46,7 +48,7 @@ dependencies {
     implementation Dependencies.constraint
     implementation Dependencies.appcompat
     implementation Dependencies.materials
-    implementation project(path: ':DashboardData')
-    implementation project(path: ':DashboardDomain')
+    implementation Dependencies.retrofit
+
 
 }

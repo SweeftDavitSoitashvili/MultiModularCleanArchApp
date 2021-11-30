@@ -51,9 +51,9 @@ class SignInFragment : Fragment() {
                     if (!isUserExist(inputEmailInput.text.toString(), inputPasswordInput.text.toString())) {
                         Toast.makeText(it.context, "User does not exist", Toast.LENGTH_LONG).show()
                     }
-
                     if (signInVm.isUserEmailExist(inputEmailInput.text.toString())) {
                         Toast.makeText(it.context, "You signed in successfully", Toast.LENGTH_LONG).show()
+                        navigation.navigateToDashboard()
                     } else {
                         Toast.makeText(it.context, "User not found, try again", Toast.LENGTH_LONG).show()
                     }

@@ -11,4 +11,8 @@ class NavigationImpl(private val navController: NavController) :Navigation {
     override fun navigateToSignUp() {
         navController.navigate(R.id.signUpFragment2)
     }
+
+    override fun navigateToDashboard() {
+        navController.navigate(R.id.dashboardFragment)
+    }
 }

@@ -4,6 +4,6 @@ import com.example.dashboarddata.models.Response
 import retrofit2.http.GET
 
 interface RemoteApiService {
-    @GET("unknown")
+    @GET(".")
     suspend fun getResources() : Response
 }
