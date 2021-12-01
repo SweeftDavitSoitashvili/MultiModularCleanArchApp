@@ -35,4 +35,5 @@ dependencies {
     implementation Dependencies.nav_dynamic_features
     implementation Dependencies.appcompat
     implementation Dependencies.core
+    implementation project(path: ':Base')
 }

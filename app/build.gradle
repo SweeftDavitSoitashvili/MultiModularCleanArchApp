@@ -29,7 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = [':SignUp', ':SignIn', ':Dashboard']
+    dynamicFeatures = [':SignUp', ':SignIn', ':Dashboard', ':Base']
 }
 
 dependencies {

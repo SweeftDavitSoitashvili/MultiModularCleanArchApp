@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.base.ui.fragments.BaseFeatureFragment
 import com.example.dashboard.R
 import com.example.dashboard.ui.vm.DashboardVm
 import com.example.dashboard.ui.vm.adapters.ResourceAdapter
@@ -18,33 +19,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import org.koin.java.KoinJavaComponent.inject
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : BaseFeatureFragment<DashboardVm>() {
 
-    private val loadScopedModules by inject<ModuleManager>()
+    override val vm: DashboardVm by inject()
 
-    private lateinit var resourceAdapter : ResourceAdapter
+    override val layout: Int = R.layout.fragment_dashboard
 
-    private val dashboardModule = module {
+    override fun diModule() = module {
         single(qualifier = named<DashboardFragment>()) { ResourceUseCase(get()) }
         viewModel { DashboardVm(get(qualifier = named<DashboardFragment>())) }
     }
+    private lateinit var resourceAdapter : ResourceAdapter
 
-    private val dashboardVm : DashboardVm by inject()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadScopedModules.addModule(dashboardModule)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,13 +51,8 @@ class DashboardFragment : Fragment() {
 
     private fun makeResponseApiCall()  {
         CoroutineScope(Dispatchers.Main).launch {
-            initResourceAdapter(dashboardVm.getResource())
+            initResourceAdapter(vm.getResource())
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        loadScopedModules.removeModule(dashboardModule)
     }
 }
 

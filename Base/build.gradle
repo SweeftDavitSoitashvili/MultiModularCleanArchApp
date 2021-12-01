@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.dashboard"
+        applicationId "com.example.base"
         minSdk 27
         targetSdk 31
         versionCode 1
@@ -24,16 +24,12 @@ android {
 }
 
 dependencies {
-    // modules
+    // projects
     implementation project(":app")
-    implementation project(":DashboardDomain")
 
     // libraries
     implementation Dependencies.koin
-    implementation Dependencies.coroutine
     implementation Dependencies.nav_dynamic_features
     implementation Dependencies.appcompat
     implementation Dependencies.core
-    implementation Dependencies.recyclerview
-    implementation project(path: ':Base')
 }

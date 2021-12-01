@@ -1,19 +1,13 @@
 package com.example.signup.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.findNavController
 import com.example.authdomain.interactors.UserUseCase
 import com.example.authdomain.models.User
-import com.example.multimoduleapp.di.ModuleManager
-import com.example.multimoduleapp.navigation.Navigation
-import com.example.multimoduleapp.navigation.NavigationImpl
+import com.example.base.ui.fragments.BaseFeatureFragment
 import com.example.signup.R
 import com.example.signup.ui.vm.SignUpVm
 import com.example.signup.ui.vm.validator.EmptyFieldException
@@ -25,34 +19,19 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
 
-    private val loadScopedModules by inject<ModuleManager>()
-
-    private val signUpModule = module {
+    override fun diModule() = module {
         single(qualifier = named<SignUpFragment>()) { UserUseCase(get()) }
         viewModel { SignUpVm(get(qualifier = named<SignUpFragment>())) }
     }
 
-    private val signUpVm: SignUpVm by inject()
+    override val layout: Int = R.layout.fragment_sign_up
 
-    private lateinit var navigation: Navigation
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadScopedModules.addModule(signUpModule)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
-    }
+    override val vm: SignUpVm by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigation = NavigationImpl(requireView().findNavController())
         signUp()
         navigateToSignIn()
     }
@@ -82,12 +61,12 @@ class SignUpFragment : Fragment() {
 
             CoroutineScope(Dispatchers.Main).launch {
 
-                if (signUpVm.isUserExist(email)) {
+                if (vm.isUserExist(email)) {
                     Toast.makeText(it.context, "User Already exists", Toast.LENGTH_LONG).show()
                     return@launch
                 }
 
-                signUpVm.saveUser(
+                vm.saveUser(
                     User(
                         email,
                         password
@@ -112,10 +91,5 @@ class SignUpFragment : Fragment() {
         if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
             throw EmptyFieldException()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        loadScopedModules.removeModule(signUpModule)
     }
 }
