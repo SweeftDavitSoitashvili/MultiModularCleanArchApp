@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
 }
 
@@ -7,13 +7,13 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.multimoduleapp"
         minSdk 27
         targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -29,7 +29,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = [':Dashboard', ':Base', ':Auth']
 }
 
 dependencies {
@@ -38,11 +37,9 @@ dependencies {
     implementation Dependencies.koin
     implementation Dependencies.coroutine
     implementation Dependencies.nav_dynamic_features
-    implementation Dependencies.core
-    implementation Dependencies.constraint
     implementation Dependencies.appcompat
-    implementation Dependencies.materials
-    implementation Dependencies.retrofit
-
-
+    implementation Dependencies.core
+    implementation Dependencies.room
+    implementation project(path: ':Auth')
+    implementation project(path: ':Dashboard')
 }

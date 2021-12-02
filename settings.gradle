@@ -8,11 +8,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MultiModuleApp"
 include ':app'
-include ':AuthDomain'
-include ':AuthData'
-include ':SignUp'
-include ':SignIn'
-include ':DashboardData'
-include ':DashboardDomain'
 include ':Dashboard'
 include ':Base'
+include ':Auth'
+include ':DI'

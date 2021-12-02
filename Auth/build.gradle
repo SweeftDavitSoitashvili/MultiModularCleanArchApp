@@ -1,13 +1,13 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.dynamic-feature'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
-
 android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.multimoduleapp"
+        applicationId "com.example.auth"
         minSdk 27
         targetSdk 31
         versionCode 1
@@ -22,27 +22,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    dynamicFeatures = [':Dashboard', ':Base', ':Auth']
 }
 
 dependencies {
+
+    // modules
+    implementation project(":app")
+    implementation project(path: ':Base')
 
     // libraries
     implementation Dependencies.koin
     implementation Dependencies.coroutine
     implementation Dependencies.nav_dynamic_features
-    implementation Dependencies.core
-    implementation Dependencies.constraint
     implementation Dependencies.appcompat
-    implementation Dependencies.materials
-    implementation Dependencies.retrofit
-
-
+    implementation Dependencies.core
+    implementation Dependencies.room
+    kapt Dependencies.room_compiler
 }

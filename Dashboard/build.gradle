@@ -26,7 +26,7 @@ android {
 dependencies {
     // modules
     implementation project(":app")
-    implementation project(":DashboardDomain")
+    implementation project(path: ':Base')
 
     // libraries
     implementation Dependencies.koin
@@ -35,5 +35,6 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.recyclerview
-    implementation project(path: ':Base')
+    implementation Dependencies.retrofit
+    implementation Dependencies.gson_factory
 }
