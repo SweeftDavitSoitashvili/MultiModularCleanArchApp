@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dashboard.R
-import com.example.dashboarddomain.models.Resource
+import com.example.dashboard.domain.models.Resource
 
 class ResourceAdapter(private val resources: List<Resource>) :
     RecyclerView.Adapter<ResourceAdapter.ResourceViewHolder>() {

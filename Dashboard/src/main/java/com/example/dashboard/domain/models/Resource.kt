@@ -1,4 +1,4 @@
-package com.example.dashboarddomain.models
+package com.example.dashboard.domain.models
 
 data class Resource(
     val id : Int,

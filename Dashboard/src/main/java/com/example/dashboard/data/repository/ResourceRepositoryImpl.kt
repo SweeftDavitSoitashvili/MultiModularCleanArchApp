@@ -1,9 +1,8 @@
 package com.example.dashboard.data.repository
 
-import android.util.Log.d
-import com.example.dashboarddata.data_sources.resource.ResourceDataSource
-import com.example.dashboarddata.mappers.resource.ResourceMapper
-import com.example.dashboarddomain.models.Resource
+import com.example.dashboard.data.data_sources.resource.ResourceDataSource
+import com.example.dashboard.data.mappers.resource.ResourceMapper
+import com.example.dashboard.domain.models.Resource
 import com.example.dashboarddomain.repository.ResourceRepository
 
 class ResourceRepositoryImpl(

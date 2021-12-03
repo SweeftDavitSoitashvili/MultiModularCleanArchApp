@@ -1,11 +1,13 @@
 package com.example.dashboard.data.mappers.resource
 
-import com.example.dashboarddomain.models.Resource
+import com.example.dashboard.data.models.ResourceDto
+import com.example.dashboard.domain.models.Resource
+
 
 class ResourceMapper {
-    fun mapToResource(resource : Resource) : com.example.dashboarddomain.models.Resource {
+    fun mapToResource(resource : ResourceDto) : Resource {
         with(resource) {
-            return com.example.dashboarddomain.models.Resource(
+            return Resource(
                 id = id,
                 name = name,
                 color = color,
@@ -15,8 +17,8 @@ class ResourceMapper {
         }
     }
 
-    fun mapToResourceList(resources : List<Resource>) : List<com.example.dashboarddomain.models.Resource>{
-        val res = mutableListOf<com.example.dashboarddomain.models.Resource>()
+    fun mapToResourceList(resources : List<ResourceDto>) : List<Resource>{
+        val res = mutableListOf<Resource>()
         resources.forEach {
             res.add(mapToResource(it))
         }

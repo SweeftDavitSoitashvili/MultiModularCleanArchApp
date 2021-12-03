@@ -8,23 +8,14 @@ import android.widget.Toast
 import com.example.auth.R
 import com.example.auth.presentation.validators.EmptyFieldException
 import com.example.auth.presentation.vm.SignUpVm
-import com.example.auth.domain.interactors.UserUseCase
 import com.example.authdomain.models.User
 import com.example.base.ui.fragments.BaseFeatureFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
 class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
-
-    override fun diModule() = module {
-        single(qualifier = named<SignUpFragment>()) { UserUseCase(get()) }
-        viewModel { SignUpVm(get(qualifier = named<SignUpFragment>())) }
-    }
 
     override val layout: Int = R.layout.fragment_sign_up
 
@@ -73,14 +64,13 @@ class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
                     )
                 )
                 Toast.makeText(it.context, "You have signed up successfully", Toast.LENGTH_LONG).show()
-                navigation.navigateToSignIn()
             }
         }
     }
 
     private fun navigateToSignIn() {
         requireView().findViewById<Button>(R.id.signInBtn).setOnClickListener {
-            navigation.navigateToSignIn()
+
         }
     }
 

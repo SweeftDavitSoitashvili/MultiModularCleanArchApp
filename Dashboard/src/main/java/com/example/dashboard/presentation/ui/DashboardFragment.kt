@@ -8,15 +8,11 @@ import com.example.base.ui.fragments.BaseFeatureFragment
 import com.example.dashboard.R
 import com.example.dashboard.presentation.ui.vm.DashboardVm
 import com.example.dashboard.presentation.ui.vm.adapters.ResourceAdapter
-import com.example.dashboarddomain.interactors.ResourceUseCase
-import com.example.dashboarddomain.models.Resource
+import com.example.dashboard.domain.models.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
 class DashboardFragment : BaseFeatureFragment<DashboardVm>() {
 
@@ -24,12 +20,7 @@ class DashboardFragment : BaseFeatureFragment<DashboardVm>() {
 
     override val layout: Int = R.layout.fragment_dashboard
 
-    override fun diModule() = module {
-        single(qualifier = named<DashboardFragment>()) { ResourceUseCase(get()) }
-        viewModel { DashboardVm(get(qualifier = named<DashboardFragment>())) }
-    }
     private lateinit var resourceAdapter : ResourceAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

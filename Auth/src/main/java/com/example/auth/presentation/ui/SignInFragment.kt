@@ -5,20 +5,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.findNavController
 import com.example.auth.R
 import com.example.auth.presentation.validators.EmptyFieldException
 import com.example.auth.presentation.vm.SignInVm
-import com.example.auth.domain.interactors.UserUseCase
 import com.example.base.ui.fragments.BaseFeatureFragment
-import com.example.multimoduleapp.navigation.NavigationImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
 class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
@@ -26,14 +21,8 @@ class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
     override val layout: Int = R.layout.fragment_sign_in
 
-    override fun diModule() = module {
-        single(qualifier = named<SignInFragment>()) { UserUseCase(get()) }
-        viewModel { SignInVm(get(qualifier = named<SignInFragment>())) }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigation = NavigationImpl(requireView().findNavController())
         signIn()
         navigateToSignUp()
     }
@@ -63,7 +52,6 @@ class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
                     if (vm.isUserEmailExist(email)) {
                         Toast.makeText(it.context, "You signed in successfully", Toast.LENGTH_LONG).show()
-                        navigation.navigateToDashboard()
                     } else {
                         Toast.makeText(it.context, "User not found, try again", Toast.LENGTH_LONG).show()
                     }
@@ -80,7 +68,6 @@ class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
     private fun navigateToSignUp() {
         requireView().findViewById<Button>(R.id.signUpBtn).setOnClickListener {
-            navigation.navigateToSignUp()
         }
     }
 

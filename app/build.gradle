@@ -29,10 +29,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = [':Dashboard', ':Base', ':Auth']
 }
 
 dependencies {
+
+    // modules 
+    implementation project(path: ':Auth')
+    implementation project(path: ':Dashboard')
 
     // libraries
     implementation Dependencies.koin
@@ -43,6 +46,7 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.materials
     implementation Dependencies.retrofit
+
 
 
 }

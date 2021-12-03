@@ -1,12 +1,11 @@
 plugins {
-    id 'com.android.dynamic-feature'
+    id 'com.android.library'
     id 'kotlin-android'
 }
 android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.dashboard"
         minSdk 27
         targetSdk 31
         versionCode 1
@@ -25,7 +24,6 @@ android {
 
 dependencies {
     // modules
-    implementation project(":app")
     implementation project(path: ':Base')
 
     // libraries

@@ -1,6 +1,6 @@
 package com.example.dashboarddomain.repository
 
-import com.example.dashboarddomain.models.Resource
+import com.example.dashboard.domain.models.Resource
 
 interface ResourceRepository {
     suspend fun getResources() : List<Resource>
