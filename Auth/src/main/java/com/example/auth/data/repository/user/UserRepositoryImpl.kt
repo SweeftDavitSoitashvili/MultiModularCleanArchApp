@@ -1,6 +1,6 @@
 package com.example.authdata.repository.user
 
-import com.example.authdata.data_source.user.UserDataSource
+import com.example.auth.data.data_source.user.UserDataSource
 import com.example.authdata.mappers.UserMapper
 import com.example.authdomain.models.User
 import com.example.authdomain.repository.UserRepository

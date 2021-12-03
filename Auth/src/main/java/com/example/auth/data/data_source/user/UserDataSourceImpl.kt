@@ -1,5 +1,6 @@
-package com.example.authdata.data_source.user
+package com.example.auth.data.data_source.user
 
+import com.example.auth.data.data_source.user.UserDataSource
 import com.example.authdata.room_db.AppDatabase
 import com.example.authdata.room_db.entity.UserEntity
 

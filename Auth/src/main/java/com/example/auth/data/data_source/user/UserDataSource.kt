@@ -1,4 +1,4 @@
-package com.example.authdata.data_source.user
+package com.example.auth.data.data_source.user
 
 import com.example.authdata.room_db.entity.UserEntity
 

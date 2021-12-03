@@ -26,7 +26,9 @@ dependencies {
 
     // libraries
     implementation Dependencies.koin
-    implementation Dependencies.nav_dynamic_features
+    implementation Dependencies.fragment_nav
+    implementation Dependencies.ui_nav
     implementation Dependencies.appcompat
     implementation Dependencies.core
+    implementation project(path: ':Navigation')
 }

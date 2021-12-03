@@ -1,4 +1,4 @@
-package com.example.dashboarddomain.repository
+package com.example.dashboard.domain.repository
 
 import com.example.dashboard.domain.models.Resource
 

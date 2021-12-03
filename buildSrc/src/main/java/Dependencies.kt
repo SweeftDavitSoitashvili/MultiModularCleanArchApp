@@ -25,7 +25,8 @@ object Versions {
 object Dependencies {
     val koin = "io.insert-koin:koin-android:$koin_version"
     val coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutine_version}"
-    val nav_dynamic_features = "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    val fragment_nav = "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    val ui_nav = "androidx.navigation:navigation-ui-ktx:$nav_version"
     val constraint = "androidx.constraintlayout:constraintlayout:$constraint_version"
     val core = "androidx.core:core-ktx:$core_version"
     val appcompat = "androidx.appcompat:appcompat:$appcompat_version"
@@ -36,3 +37,4 @@ object Dependencies {
     val gson_factory = "com.squareup.retrofit2:converter-gson:$retrofit_version"
     val recyclerview = "androidx.recyclerview:recyclerview:$recyclerview_version"
 }
+

@@ -36,17 +36,19 @@ dependencies {
     // modules 
     implementation project(path: ':Auth')
     implementation project(path: ':Dashboard')
+    implementation project(path: ':Navigation')
 
     // libraries
     implementation Dependencies.koin
     implementation Dependencies.coroutine
-    implementation Dependencies.nav_dynamic_features
+    implementation Dependencies.fragment_nav
+    implementation Dependencies.ui_nav
     implementation Dependencies.core
     implementation Dependencies.constraint
     implementation Dependencies.appcompat
     implementation Dependencies.materials
     implementation Dependencies.retrofit
-
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 
 }

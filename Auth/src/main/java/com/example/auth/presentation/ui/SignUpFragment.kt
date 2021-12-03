@@ -10,6 +10,9 @@ import com.example.auth.presentation.validators.EmptyFieldException
 import com.example.auth.presentation.vm.SignUpVm
 import com.example.authdomain.models.User
 import com.example.base.ui.fragments.BaseFeatureFragment
+import com.example.navigation.NavigationFlow
+import com.example.navigation.Navigator
+import com.example.navigation.ToFlowNavigatable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +23,8 @@ class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
     override val layout: Int = R.layout.fragment_sign_up
 
     override val vm: SignUpVm by inject()
+
+    override val navigator: Navigator by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,13 +69,14 @@ class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
                     )
                 )
                 Toast.makeText(it.context, "You have signed up successfully", Toast.LENGTH_LONG).show()
+                navigator.navController?.navigate(R.id.action_signUpFragment_to_signInFragment)
             }
         }
     }
 
     private fun navigateToSignIn() {
         requireView().findViewById<Button>(R.id.signInBtn).setOnClickListener {
-
+            navigator.navController?.navigate(R.id.action_signUpFragment_to_signInFragment)
         }
     }
 

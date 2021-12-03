@@ -9,6 +9,7 @@ import com.example.dashboard.R
 import com.example.dashboard.presentation.ui.vm.DashboardVm
 import com.example.dashboard.presentation.ui.vm.adapters.ResourceAdapter
 import com.example.dashboard.domain.models.Resource
+import com.example.navigation.Navigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,8 @@ import org.koin.android.ext.android.inject
 class DashboardFragment : BaseFeatureFragment<DashboardVm>() {
 
     override val vm: DashboardVm by inject()
+
+    override val navigator: Navigator by inject()
 
     override val layout: Int = R.layout.fragment_dashboard
 

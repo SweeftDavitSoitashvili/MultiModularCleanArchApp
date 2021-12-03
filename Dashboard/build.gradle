@@ -29,10 +29,12 @@ dependencies {
     // libraries
     implementation Dependencies.koin
     implementation Dependencies.coroutine
-    implementation Dependencies.nav_dynamic_features
+    implementation Dependencies.fragment_nav
+    implementation Dependencies.ui_nav
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.recyclerview
     implementation Dependencies.retrofit
     implementation Dependencies.gson_factory
+    implementation project(path: ':Navigation')
 }

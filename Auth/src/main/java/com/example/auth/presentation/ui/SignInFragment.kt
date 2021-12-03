@@ -9,6 +9,9 @@ import com.example.auth.R
 import com.example.auth.presentation.validators.EmptyFieldException
 import com.example.auth.presentation.vm.SignInVm
 import com.example.base.ui.fragments.BaseFeatureFragment
+import com.example.navigation.NavigationFlow
+import com.example.navigation.Navigator
+import com.example.navigation.ToFlowNavigatable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +21,8 @@ import org.koin.core.qualifier.named
 class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
     override val vm: SignInVm by inject()
+
+    override val navigator: Navigator by inject()
 
     override val layout: Int = R.layout.fragment_sign_in
 
@@ -52,6 +57,7 @@ class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
                     if (vm.isUserEmailExist(email)) {
                         Toast.makeText(it.context, "You signed in successfully", Toast.LENGTH_LONG).show()
+                        navigator.navigateToFlow(NavigationFlow.DashboardFlow)
                     } else {
                         Toast.makeText(it.context, "User not found, try again", Toast.LENGTH_LONG).show()
                     }
@@ -68,6 +74,7 @@ class SignInFragment : BaseFeatureFragment<SignInVm>() {
 
     private fun navigateToSignUp() {
         requireView().findViewById<Button>(R.id.signUpBtn).setOnClickListener {
+            navigator.navController?.navigate(R.id.action_signInFragment_to_signUpFragment)
         }
     }
 

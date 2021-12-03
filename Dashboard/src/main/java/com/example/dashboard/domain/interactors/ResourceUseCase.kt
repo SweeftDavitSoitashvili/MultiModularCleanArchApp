@@ -1,6 +1,7 @@
-package com.example.dashboarddomain.interactors
+package com.example.dashboard.domain.interactors
 
-import com.example.dashboarddomain.repository.ResourceRepository
+import com.example.dashboard.domain.repository.ResourceRepository
+
 
 class ResourceUseCase(
     private val resourceRepository: ResourceRepository
