@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Auth" />
             <option value="$PROJECT_DIR$/Base" />
+            <option value="$PROJECT_DIR$/DI" />
             <option value="$PROJECT_DIR$/Dashboard" />
             <option value="$PROJECT_DIR$/Navigation" />
             <option value="$PROJECT_DIR$/app" />

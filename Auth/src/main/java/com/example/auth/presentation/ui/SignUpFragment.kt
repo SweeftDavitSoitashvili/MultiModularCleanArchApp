@@ -6,17 +6,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.auth.R
+import com.example.auth.domain.interactors.UserUseCase
 import com.example.auth.presentation.validators.EmptyFieldException
+import com.example.auth.presentation.vm.SignInVm
 import com.example.auth.presentation.vm.SignUpVm
 import com.example.authdomain.models.User
 import com.example.base.ui.fragments.BaseFeatureFragment
-import com.example.navigation.NavigationFlow
 import com.example.navigation.Navigator
-import com.example.navigation.ToFlowNavigatable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
 
@@ -25,6 +28,11 @@ class SignUpFragment : BaseFeatureFragment<SignUpVm>() {
     override val vm: SignUpVm by inject()
 
     override val navigator: Navigator by inject()
+
+    override fun diModules() = module {
+        factory(qualifier = named<SignUpFragment>()) { UserUseCase(get()) }
+        viewModel {SignUpVm(get(qualifier = named<SignUpFragment>()))}
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

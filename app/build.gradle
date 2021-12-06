@@ -37,6 +37,7 @@ dependencies {
     implementation project(path: ':Auth')
     implementation project(path: ':Dashboard')
     implementation project(path: ':Navigation')
+    implementation project(path: ':DI')
 
     // libraries
     implementation Dependencies.koin
@@ -48,7 +49,5 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.materials
     implementation Dependencies.retrofit
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
 
 }

@@ -1,9 +1,6 @@
 package com.example.multimoduleapp
 
 import android.app.Application
-import com.example.auth.domain.interactors.UserUseCase
-import com.example.auth.presentation.vm.SignInVm
-import com.example.auth.presentation.vm.SignUpVm
 import com.example.auth.data.data_source.user.UserDataSource
 import com.example.auth.data.data_source.user.UserDataSourceImpl
 import com.example.authdata.mappers.UserMapper
@@ -16,17 +13,15 @@ import com.example.dashboard.data.data_sources.resource.ResourceDataSourceImpl
 import com.example.dashboard.data.mappers.resource.ResourceMapper
 import com.example.dashboard.data.remote_service.RemoteApiService
 import com.example.dashboard.data.repository.ResourceRepositoryImpl
-import com.example.dashboard.presentation.ui.vm.DashboardVm
-import com.example.dashboard.domain.interactors.ResourceUseCase
 import com.example.dashboard.domain.repository.ResourceRepository
+import com.example.di.FeatureModuleManager
 import com.example.navigation.Navigator
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class MainApp : Application() {
+class MainApp : Application(), FeatureModuleManager {
     private lateinit var koinApplication: KoinApplication
 
     companion object {
@@ -54,11 +49,10 @@ class MainApp : Application() {
 
         modules.add(module {
             single { Navigator() }
+            single<FeatureModuleManager> { mainApp!! }
         })
         modules.add(getAuthModule())
         modules.add(getDashboardModule())
-        modules.add(getAuthFeatureModule())
-        modules.add(getDashboardFeatureModule())
 
         return modules
     }
@@ -77,19 +71,16 @@ class MainApp : Application() {
         single<ResourceRepository> { ResourceRepositoryImpl(get(), get()) }
     }
 
-    private fun getAuthFeatureModule() = module {
-        factory { UserUseCase(get()) }
-        viewModel { SignInVm(get()) }
-        viewModel { SignUpVm(get()) }
-    }
-
-    private fun getDashboardFeatureModule() = module {
-        factory { ResourceUseCase(get()) }
-        viewModel { DashboardVm(get()) }
-    }
-
     override fun onTerminate() {
         super.onTerminate()
         koinApplication.close()
+    }
+
+    override fun loadModule(module: Module) {
+        koinApplication.modules(module)
+    }
+
+    override fun unLoadModule(module: Module) {
+        koinApplication.unloadModules(module)
     }
 }

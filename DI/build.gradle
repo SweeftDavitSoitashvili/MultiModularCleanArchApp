@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+
 android {
     compileSdk 31
 
@@ -12,6 +13,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -20,16 +22,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-
-    // libraries
     implementation Dependencies.koin
-    implementation Dependencies.fragment_nav
-    implementation Dependencies.ui_nav
-    implementation Dependencies.appcompat
-    implementation Dependencies.core
-    implementation project(path: ':Navigation')
-    implementation project(path: ':DI')
 }

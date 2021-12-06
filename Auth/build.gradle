@@ -27,6 +27,8 @@ dependencies {
 
     // modules
     implementation project(path: ':Base')
+    implementation project(path: ':Navigation')
+
 
     // libraries
     implementation Dependencies.koin
@@ -36,6 +38,5 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.room
-    implementation project(path: ':Navigation')
     kapt Dependencies.room_compiler
 }
